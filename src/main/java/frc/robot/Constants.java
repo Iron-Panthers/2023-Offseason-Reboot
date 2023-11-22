@@ -14,4 +14,20 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static class Intake{
+
+        public static final int INTAKE_MOTOR_NUMBER = 0;
+
+        public static final double CUBE_LOADING_SPEED = -.5d;
+        public static final double CONE_LOADING_SPEED = .5d;
+
+        public static final double CUBE_UNLOADING_SPEED = -.5d;
+        public static final double CONE_UNLOADING_SPEED = .5d;
+
+        public static final double CUBE_STATOR_LIMIT = 70;
+        public static final double CONE_STATOR_LIMIT = 70;
+
+    }
+
 }

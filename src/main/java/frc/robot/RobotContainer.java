@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.IntakeCommand;
+import frc.robot.Commands.StopIntakeMotorCommand;
 import frc.robot.Subsystems.IntakeSubsystem;
 
 /**
@@ -22,7 +23,6 @@ public class RobotContainer {
   public CommandXboxController driverB = new CommandXboxController(0);
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -62,9 +62,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // intake and outtake
     driverB.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem, false, true));
     driverB.leftTrigger().onTrue(new IntakeCommand(intakeSubsystem, true, true));
     driverB.rightBumper().onTrue(new IntakeCommand(intakeSubsystem, false, false));
     driverB.leftBumper().onTrue(new IntakeCommand(intakeSubsystem, true, false));
+
+    // stop the motors
+    driverB.x().onTrue(new StopIntakeMotorCommand(intakeSubsystem));
   }
 }

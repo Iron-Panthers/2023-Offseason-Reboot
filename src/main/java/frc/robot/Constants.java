@@ -25,7 +25,7 @@ public final class Constants {
     public static final double CUBE_UNLOADING_SPEED = -.5d;
     public static final double CONE_UNLOADING_SPEED = .5d;
 
-    public static final double CUBE_STATOR_LIMIT = 100;
-    public static final double CONE_STATOR_LIMIT = 100;
+    public static final double CUBE_STATOR_LIMIT = 90;
+    public static final double CONE_STATOR_LIMIT = 70;
   }
 }

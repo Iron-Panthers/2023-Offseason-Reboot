@@ -7,15 +7,13 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-
-  //MOTORS
+  // MOTORS
   TalonFX intakeMotor;
   private double motorPower;
 
@@ -27,50 +25,47 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
 
-      //setup the motor
-      intakeMotor = new TalonFX(Constants.Intake.INTAKE_MOTOR_NUMBER);
+    // setup the motor
+    intakeMotor = new TalonFX(Constants.Intake.INTAKE_MOTOR_NUMBER);
 
-      intakeMotor.configFactoryDefault();
+    intakeMotor.configFactoryDefault();
 
-      intakeMotor.clearStickyFaults();
+    intakeMotor.clearStickyFaults();
 
-      intakeMotor.setSelectedSensorPosition(0d);
+    intakeMotor.setSelectedSensorPosition(0d);
 
-      intakeMotor.setNeutralMode(NeutralMode.Brake);
+    intakeMotor.setNeutralMode(NeutralMode.Brake);
 
-      filter = LinearFilter.movingAverage(30);
-
+    filter = LinearFilter.movingAverage(30);
   }
 
-  public boolean IsLoaded(){//returns true when the cube or cone has finished loading
+  public boolean IsLoaded() { // returns true when the cube or cone has finished loading
     boolean loaded = false;
-    if(isCone && filterOutput >= Constants.Intake.CONE_STATOR_LIMIT){
+    if (isCone && filterOutput >= Constants.Intake.CONE_STATOR_LIMIT) {
       loaded = true;
-    }else if(!isCone && filterOutput >= Constants.Intake.CONE_STATOR_LIMIT){
+    } else if (!isCone && filterOutput >= Constants.Intake.CONE_STATOR_LIMIT) {
       loaded = true;
     }
     return loaded;
   }
 
-  public void SetMotorPower(double motorPower){
-      this.motorPower = motorPower;
+  public void SetMotorPower(double motorPower) {
+    this.motorPower = motorPower;
   }
 
-  public void SetObjectType(boolean isCone){
+  public void SetObjectType(boolean isCone) {
     this.isCone = isCone;
   }
-
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     filterOutput = filter.calculate(intakeMotor.getStatorCurrent());
 
-    //set the motor power to the var
+    // set the motor power to the var
     intakeMotor.set(TalonFXControlMode.PercentOutput, motorPower);
 
-    //if we are done loading than set the motor power to 0
-    if(IsLoaded())
-      SetMotorPower(0);
+    // if we are done loading than set the motor power to 0
+    if (IsLoaded()) SetMotorPower(0);
   }
 }

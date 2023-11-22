@@ -11,9 +11,8 @@ import frc.robot.Subsystems.IntakeSubsystem;
 public class IntakeCommand extends CommandBase {
 
   IntakeSubsystem intakeSubsystem;
-  boolean isCone;//wheather or not your dealing with a cone or a cube
-  boolean isIntake;//if its intake or outtake
-  
+  boolean isCone; // wheather or not your dealing with a cone or a cube
+  boolean isIntake; // if its intake or outtake
 
   /** Creates a new LoadCube. */
   public IntakeCommand(IntakeSubsystem intakeSubsystem, boolean isCone, boolean isIntake) {
@@ -28,13 +27,13 @@ public class IntakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(isCone && isIntake){
+    if (isCone && isIntake) {
       intakeSubsystem.SetMotorPower(Constants.Intake.CONE_LOADING_SPEED);
-    }else if(!isCone && isIntake){
+    } else if (!isCone && isIntake) {
       intakeSubsystem.SetMotorPower(Constants.Intake.CUBE_LOADING_SPEED);
-    }else if(isCone && !isIntake){
+    } else if (isCone && !isIntake) {
       intakeSubsystem.SetMotorPower(Constants.Intake.CONE_UNLOADING_SPEED);
-    }else if(!isCone && !isIntake){
+    } else if (!isCone && !isIntake) {
       intakeSubsystem.SetMotorPower(Constants.Intake.CUBE_UNLOADING_SPEED);
     }
 
@@ -47,8 +46,7 @@ public class IntakeCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

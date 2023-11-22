@@ -66,5 +66,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driverB.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem, false, true));
     driverB.leftTrigger().onTrue(new IntakeCommand(intakeSubsystem, true, true));
+    driverB.rightBumper().onTrue(new IntakeCommand(intakeSubsystem, false, false));
+    driverB.leftBumper().onTrue(new IntakeCommand(intakeSubsystem, true, false));
   }
 }

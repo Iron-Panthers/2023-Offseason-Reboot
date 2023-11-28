@@ -1,6 +1,10 @@
-import frc.robot.subsystems.ElevatorSubsystem;
+package frc.robot;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Commands.ElevatorBaseCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.Subsystems.ElevatorSubsystem;
 
 
 /**
@@ -14,8 +18,7 @@ public class RobotContainer {
  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
 
- private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem);
-private final ManualArmCommand ManualArmCommand = new ManualArmCommand(elevatorSubsystem);
+private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem, 0);
 
 
  private final CommandXboxController driverA = new CommandXboxController(0);

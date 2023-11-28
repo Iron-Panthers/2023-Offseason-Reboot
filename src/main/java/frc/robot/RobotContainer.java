@@ -18,7 +18,7 @@ public class RobotContainer {
  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
 
-private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem, 0);
+private ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem, 0);
 
 
  private final CommandXboxController driverA = new CommandXboxController(0);
@@ -29,7 +29,7 @@ private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(
  public RobotContainer() {
 
 
-   double[] levels = {5d,10d,17d,8d,4d,7d,1d};
+   double[] levels = {20d, 15d, 10d, 3d};
 
 
    for(double i :levels){
@@ -39,7 +39,7 @@ private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(
 
    // Configure the button bindings
    configureButtonBindings();
-   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
+   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20d));
    driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
    driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));
    driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));

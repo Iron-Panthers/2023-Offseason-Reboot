@@ -28,6 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase {
  private TalonFX left_motor;
  /** leader */
  private TalonFX right_motor;
+ private TalonFX wrist_motor;
  private PIDController pidController;
  private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
@@ -37,6 +38,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
    left_motor = new TalonFX(14);
    right_motor = new TalonFX(15);
+   wrist_motor = new TalonFX(16);
    right_motor.configFactoryDefault();
    left_motor.configFactoryDefault();
     right_motor.clearStickyFaults();
@@ -61,6 +63,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    // make sure we hold our height when we get disabled
    right_motor.setNeutralMode(NeutralMode.Coast);
    left_motor.setNeutralMode(NeutralMode.Coast);
+   wrist_motor.setNeutralMode(NeutralMode.Brake);
 
 
    right_motor.follow(left_motor);
@@ -114,7 +117,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      return ticksToInches(-left_motor.getSelectedSensorPosition());
    }
 public boolean nearTargetHeight(){
-   if(targetHeight - 0.5 <= getCurrentHeight() && getCurrentHeight() <= targetHeight + 0.5)return true;
+   if(targetHeight -0.5 <= getCurrentHeight() && getCurrentHeight() <= targetHeight + 0.5)return true;
    return false;
  }
  @Override
@@ -123,10 +126,10 @@ public boolean nearTargetHeight(){
    motorPower = pidController.calculate(getCurrentHeight());
    if (!pidController.atSetpoint()){
      if (getCurrentHeight()<5){
-       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.2,0.2)));
+       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, 0, 0.2)));
      }
      else{
-       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.5,0.5)));
+       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, 0,0.5)));
      }
    }
    // left_motor.set(TalonFXControlMode.PercentOutput, -(0.1));

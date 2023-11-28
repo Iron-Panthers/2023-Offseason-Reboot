@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Commands.ElevatorBaseCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.Subsystems.ElevatorSubsystem;
+import frc.Subsystems.IntakeSubsystem;
+import frc.robot.Commands.IntakeCommand;
 
 
 /**
@@ -17,14 +19,10 @@ public class RobotContainer {
  // The robot's subsystems and commands are defined here...
  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+ private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
 private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem, 0);
+
 
 
  private final CommandXboxController driverA = new CommandXboxController(0);
@@ -49,6 +47,8 @@ private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(
    driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
    driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));
    driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));
+
+   driverA.rightTrigger().whileTrue(new IntakeCommand(intakeSubsystem));
  }
 
 

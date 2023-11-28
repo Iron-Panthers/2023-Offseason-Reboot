@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ElevatorBaseCommand extends CommandBase {
  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
  private final ElevatorSubsystem elevatorSubsystem;
-public double targetHight;
+public double targetHeight;
 
 
  /**
@@ -22,8 +22,8 @@ public double targetHight;
   *
   * @param subsystem The subsystem used by this command.
   */
- public ElevatorBaseCommand(ElevatorSubsystem elevatorSubsystem, double targetHight) {
-   this.targetHight = targetHight;
+ public ElevatorBaseCommand(ElevatorSubsystem elevatorSubsystem, double targetHeight) {
+   this.targetHeight = targetHeight;
    this.elevatorSubsystem = elevatorSubsystem;
    // Use addRequirements() here to declare subsystem dependencies.
    addRequirements(elevatorSubsystem);
@@ -33,7 +33,7 @@ public double targetHight;
  // Called when the command is initially scheduled.
  @Override
  public void initialize() {
-   elevatorSubsystem.setTargetHeight(targetHight);
+   elevatorSubsystem.setTargetHeight(targetHeight);
 
 
 

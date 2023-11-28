@@ -111,12 +111,10 @@ public class ElevatorSubsystem extends SubsystemBase {
      pidController.setSetpoint(this.targetHeight); } 
           
    public double getCurrentHeight(){
-    
-   
      return ticksToInches(-left_motor.getSelectedSensorPosition());
    }
 public boolean nearTargetHeight(){
-   if(targetHeight-0.5<=getCurrentHeight() && getCurrentHeight()<=targetHeight+0.5)return true;
+   if(targetHeight - 0.5 <= getCurrentHeight() && getCurrentHeight() <= targetHeight + 0.5)return true;
    return false;
  }
  @Override
@@ -125,14 +123,12 @@ public boolean nearTargetHeight(){
    motorPower = pidController.calculate(getCurrentHeight());
    if (!pidController.atSetpoint()){
      if (getCurrentHeight()<5){
-       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower+0.02,-0.2,0.2)));
+       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.2,0.2)));
      }
      else{
-       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower+0.02,-0.5,0.5)));
+       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.5,0.5)));
      }
-      
    }
-  
    // left_motor.set(TalonFXControlMode.PercentOutput, -(0.1));
  }
 
@@ -140,5 +136,5 @@ public boolean nearTargetHeight(){
  @Override
  public void simulationPeriodic() {
    // This method will be called once per scheduler run during simulation
- }
+   }
  }

@@ -19,18 +19,18 @@ private final ManualArmCommand ManualArmCommand = new ManualArmCommand(elevatorS
 
 
  private final CommandXboxController driverA = new CommandXboxController(0);
- private double targetHight;
+ private double targetHeight;
 
 
  /** The container for the robot. Contains subsystems, OI devices, and commands. */
  public RobotContainer() {
 
 
-   double[] levels={5d,10d,17d,8d,4d,7d,1d};
+   double[] levels = {5d,10d,17d,8d,4d,7d,1d};
 
 
    for(double i :levels){
-     targetHight = i;
+     targetHeight = i;
    }
 
 

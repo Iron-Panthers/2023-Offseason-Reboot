@@ -1,6 +1,9 @@
+package frc.robot;
+import frc.robot.commands.ElevatorBaseCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 
 /**
@@ -12,10 +15,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class RobotContainer {
  // The robot's subsystems and commands are defined here...
  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-
-
- private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem);
-private final ManualArmCommand ManualArmCommand = new ManualArmCommand(elevatorSubsystem);
 
 
  private final CommandXboxController driverA = new CommandXboxController(0);
@@ -36,11 +35,7 @@ private final ManualArmCommand ManualArmCommand = new ManualArmCommand(elevatorS
 
    // Configure the button bindings
    configureButtonBindings();
-   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
-   driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
-   driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));
-   driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));
- }
+  }
 
 
  /**
@@ -49,8 +44,12 @@ private final ManualArmCommand ManualArmCommand = new ManualArmCommand(elevatorS
   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   */
- private void configureButtonBindings() {}
-
+ private void configureButtonBindings() {
+   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
+   driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
+   driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));
+   driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));
+ }
 
  /**
   * Use this to pass the autonomous command to the main {@link Robot} class.

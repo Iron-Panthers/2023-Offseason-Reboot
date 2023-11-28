@@ -17,6 +17,8 @@ public class WristCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.wristSubsystem = wristSubsystem;
     this.targetAngle = targetAngle;
+
+    addRequirements(wristSubsystem);
   }
 
   // Called when the command is initially scheduled.

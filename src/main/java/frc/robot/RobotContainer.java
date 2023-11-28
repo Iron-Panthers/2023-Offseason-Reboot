@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.WristCommand;
 import frc.robot.subsystems.WristSubsystem;
@@ -35,9 +36,9 @@ public class RobotContainer {
   //   } else if (driverB.leftTrigger().getAsBoolean()) {
 
       driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
-      driverB.a().onTrue(new WristCommand(wristSubsystem, 80));
-      driverB.b().onTrue(new WristCommand(wristSubsystem, 180));
-
+      driverB.a().onTrue(new WristCommand(wristSubsystem, 20));
+      driverB.b().onTrue(new WristCommand(wristSubsystem, 40));
+      driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
   }
 
   /**

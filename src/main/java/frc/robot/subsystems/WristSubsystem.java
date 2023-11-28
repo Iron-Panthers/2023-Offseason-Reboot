@@ -26,13 +26,13 @@ public class WristSubsystem extends SubsystemBase {
 
   public void setTargetAngle(double targetAngle) {
     this.targetAngle = targetAngle;
-    wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
-    wrist_motor.configFactoryDefault();
-    wrist_motor.clearStickyFaults();
-    wrist_motor.configReverseSoftLimitEnable(true, 0);
-    wrist_motor.setNeutralMode(NeutralMode.Coast);
-    wrist_motor.setSelectedSensorPosition(0);
-    wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
+    this.wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
+    this.wrist_motor.configFactoryDefault();
+    this.wrist_motor.clearStickyFaults();
+    this.wrist_motor.configReverseSoftLimitEnable(true, 0);
+    this.wrist_motor.setNeutralMode(NeutralMode.Coast);
+    this.wrist_motor.setSelectedSensorPosition(0);
+    this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
 
     pidController = new PIDController(0.1, 0, 0);
   }
@@ -46,7 +46,8 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   private double getCurrentAngle() {
-    return currentAngle = ticksToDegrees(wrist_motor.getSelectedSensorPosition());
+    currentAngle = ticksToDegrees(wrist_motor.getSelectedSensorPosition());
+    return currentAngle;
   }
 
   @Override

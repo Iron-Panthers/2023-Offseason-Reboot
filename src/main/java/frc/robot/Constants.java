@@ -28,4 +28,14 @@ public final class Constants {
     public static final double CUBE_STATOR_LIMIT = 90;
     public static final double CONE_STATOR_LIMIT = 70;
   }
+
+  public static class Elevator{
+    public static final double GEAR_RATIO = 0.1008;
+
+    /**number of ticks per motor revolution */
+    public static final double TICKS = 2048;
+    //tciks per revoultion
+    public static final double GEAR_CIRCUMFERENCE = 1.432* Math.PI;
+
+  }
 }

@@ -4,6 +4,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.IntakeCommand;
+import frc.robot.Commands.StopIntakeMotorCommand;
+import frc.robot.Subsystems.IntakeSubsystem;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -12,6 +18,11 @@ package frc.robot;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+  // XBOX CONTROLLER
+  public CommandXboxController driverB = new CommandXboxController(0);
+
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,6 +52,7 @@ public class RobotContainer {
    */
   public void containerMatchStarting() {
     // runs when the match starts
+
   }
 
   /**
@@ -50,5 +62,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // intake and outtake
+    driverB.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem, false, true));
+    driverB.leftTrigger().onTrue(new IntakeCommand(intakeSubsystem, true, true));
+    driverB.rightBumper().onTrue(new IntakeCommand(intakeSubsystem, false, false));
+    driverB.leftBumper().onTrue(new IntakeCommand(intakeSubsystem, true, false));
+
+    // stop the motors
+    driverB.x().onTrue(new StopIntakeMotorCommand(intakeSubsystem));
   }
 }

@@ -12,11 +12,14 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Wrist;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class WristSubsystem extends SubsystemBase {
   /** Creates a new WristSubsystem. */
   private double targetAngle;
+  private final ShuffleboardTab WristTab = Shuffleboard.getTab("Wrist");
 
   private double currentAngle;
   private TalonFX wrist_motor;
@@ -38,6 +41,7 @@ public class WristSubsystem extends SubsystemBase {
     this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
 
     pidController = new PIDController(0.1, 0, 0);
+    WristTab.add(pidController);
 }
 
   public static double degreesToTicks(double angle) {

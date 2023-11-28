@@ -36,19 +36,6 @@ private final ManualArmCommand ManualArmCommand = new ManualArmCommand(elevatorS
 
    // Configure the button bindings
    configureButtonBindings();
-
-
-
-
-   driverA.rightTrigger().onTrue(
-     new ElevatorBaseCommand(elevatorSubsystem, 5).andThen(
-       new ElevatorBaseCommand(elevatorSubsystem, 10)).andThen(
-         new ElevatorBaseCommand(elevatorSubsystem, 17)).andThen(
-           new ElevatorBaseCommand(elevatorSubsystem, 8)).andThen(
-             new ElevatorBaseCommand(elevatorSubsystem, 4)).andThen(
-               new ElevatorBaseCommand(elevatorSubsystem, 7)).andThen(
-                 new ElevatorBaseCommand(elevatorSubsystem, 1)));
-                
    driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
    driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
    driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));

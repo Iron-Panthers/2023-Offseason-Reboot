@@ -12,6 +12,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Wrist;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 
 public class WristSubsystem extends SubsystemBase {
   /** Creates a new WristSubsystem. */
@@ -28,7 +29,10 @@ public class WristSubsystem extends SubsystemBase {
     this.wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
     this.wrist_motor.configFactoryDefault();
     this.wrist_motor.clearStickyFaults();
+    this.wrist_motor.configForwardSoftLimitThreshold(0);
+    this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
     this.wrist_motor.configReverseSoftLimitEnable(true, 0);
+    this.wrist_motor.configForwardSoftLimitEnable(true, 0);
     this.wrist_motor.setNeutralMode(NeutralMode.Coast);
     this.wrist_motor.setSelectedSensorPosition(0);
     this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly

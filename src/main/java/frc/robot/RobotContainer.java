@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.WristCommand;
 import frc.robot.subsystems.WristSubsystem;
-import frc.util.Layer;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,7 +20,7 @@ import frc.util.Layer;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WristSubsystem wristSubsystem = new WristSubsystem();
-  
+
   // private final WristCommand wristCommand = new WristCommand();
   private final CommandXboxController driverB =
       new CommandXboxController(Constants.Wrist.DRIVER_CONTROLLER_PORT);
@@ -32,13 +31,12 @@ public class RobotContainer {
 
     configureButtonBindings();
 
+    //   } else if (driverB.leftTrigger().getAsBoolean()) {
 
-  //   } else if (driverB.leftTrigger().getAsBoolean()) {
-
-      driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
-      driverB.a().onTrue(new WristCommand(wristSubsystem, 20));
-      driverB.b().onTrue(new WristCommand(wristSubsystem, 40));
-      driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
+    driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
+    driverB.a().onTrue(new WristCommand(wristSubsystem, 20));
+    driverB.b().onTrue(new WristCommand(wristSubsystem, 40));
+    driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
   }
 
   /**

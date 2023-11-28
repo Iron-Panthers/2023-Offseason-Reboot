@@ -22,9 +22,8 @@ public class WristSubsystem extends SubsystemBase {
   private PIDController pidController;
   private double motorPower;
 
-  public WristSubsystem() {}
+  public WristSubsystem() {
 
-  public void setTargetAngle(double targetAngle) {
     this.targetAngle = targetAngle;
     this.wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
     this.wrist_motor.configFactoryDefault();
@@ -35,12 +34,15 @@ public class WristSubsystem extends SubsystemBase {
     this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
 
     pidController = new PIDController(0.1, 0, 0);
-  }
+}
 
   public static double degreesToTicks(double angle) {
     return angle * ((Wrist.GEAR_RATIO * Wrist.TICKS));
   }
-
+  public void setTargetAngle(double targetAngle){
+    this.targetAngle = targetAngle;
+    pidController.setSetpoint(targetAngle);
+  }
   public static double ticksToDegrees(double ticks) {
     return (ticks / (Wrist.TICKS * Wrist.GEAR_RATIO));
   }
@@ -52,7 +54,7 @@ public class WristSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //calculates motor power
+    // calculates motor power
     motorPower = pidController.calculate(getCurrentAngle());
     // This method will be called once per scheduler run
     wrist_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower, -0.5, 0.5)));

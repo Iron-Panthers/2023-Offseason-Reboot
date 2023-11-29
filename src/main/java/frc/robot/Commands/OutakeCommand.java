@@ -2,14 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.Commands;
+package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.Subsystems.IntakeSubsystem;
 
-public class IntakeCommand extends CommandBase {
-  /** Creates a new IntakeCommand. */
-  public IntakeCommand() {
+public class OutakeCommand extends CommandBase {
+  private final IntakeSubsystem subsystem;
+
+  /** Creates a new OutakeCommand. */
+  public OutakeCommand(IntakeSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.subsystem = subsystem;
+
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +24,9 @@ public class IntakeCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    subsystem.setOutakePower(-0.5);
+  }
 
   // Called once the command ends or is interrupted.
   @Override

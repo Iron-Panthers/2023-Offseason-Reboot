@@ -16,21 +16,37 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   public TalonFX IntakeMotor;
   public double IntakeMotorSpeed;
+  public double OutakeMotorPower;
+  public boolean Intake = false;
 
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     IntakeMotor = new TalonFX(Constants.Intake.INTAKE_MOTOR_PORT);
+
   }
 
   public void setIntakePower(double IntakeMotorSpeed){
+    Intake = true;
     this.IntakeMotorSpeed = IntakeMotorSpeed;
   }
+
+  public void setOutakePower(double OutakeMotorPower){
+    Intake = false;
+    this.OutakeMotorPower = OutakeMotorPower;
+
+  }
+
 
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    IntakeMotor.set(ControlMode.PercentOutput, IntakeMotorSpeed);
+    if(!Intake){
+      IntakeMotor.set(ControlMode.PercentOutput, IntakeMotorSpeed);
+    } else{
+      IntakeMotor.set(ControlMode.PercentOutput, OutakeMotorPower);
+    }  
+    
   }
 }

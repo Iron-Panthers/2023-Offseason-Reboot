@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.Subsystems.ElevatorSubsystem;
 import frc.Subsystems.IntakeSubsystem;
 import frc.robot.Commands.IntakeCommand;
+import frc.robot.Commands.IntakeSequentailCommands;
+import frc.robot.Commands.OutakeCommand;
 
 
 /**
@@ -49,6 +51,9 @@ private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(
    driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));
 
    driverA.rightTrigger().whileTrue(new IntakeCommand(intakeSubsystem));
+   driverA.rightBumper().whileTrue(new OutakeCommand(intakeSubsystem));
+
+   driverA.leftBumper().whileTrue(new IntakeSequentailCommands(intakeSubsystem));
  }
 
 

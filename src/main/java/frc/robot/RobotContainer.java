@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import frc.robot.Commands.SequentialCommands;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -20,7 +20,7 @@ import frc.robot.subsystems.WristSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WristSubsystem wristSubsystem = new WristSubsystem();
-
+    private final SequentialCommands squentialCommand = new SequentialCommands(wristSubsystem);
   // private final WristCommand wristCommand = new WristCommand();
   private final CommandXboxController driverB =
       new CommandXboxController(Constants.Wrist.DRIVER_CONTROLLER_PORT);
@@ -28,14 +28,14 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-
+    driverB.y().onTrue(new SequentialCommands(wristSubsystem));
     configureButtonBindings();
 
     //   } else if (driverB.leftTrigger().getAsBoolean()) {
-
-    driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
-    driverB.a().onTrue(new WristCommand(wristSubsystem, 20));
-    driverB.b().onTrue(new WristCommand(wristSubsystem, 40));
+  
+    // driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
+    // driverB.a().onTrue(new WristCommand(wristSubsystem, 20));
+    // driverB.b().onTrue(new WristCommand(wristSubsystem, 40));
     driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
   }
 

@@ -59,7 +59,11 @@ public class WristSubsystem extends SubsystemBase {
     currentAngle = ticksToDegrees(wrist_motor.getSelectedSensorPosition());
     return currentAngle;
   }
+  public boolean nearTargetAngle(){
+    if(targetAngle-0.5<=getCurrentAngle() && getCurrentAngle()<=targetAngle+0.5)return true;
+    return false;
 
+  }    
   @Override
   public void periodic() {
     // calculates motor power

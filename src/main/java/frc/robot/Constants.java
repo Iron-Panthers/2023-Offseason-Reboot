@@ -28,11 +28,12 @@ public final class Constants {
        public static final double GEAR_CIRCUMFERENCE = 1.432*Math.PI;
   
 }
-public static class Wrist{
-  /**the gear ratio of the motor to the final gear revolutions */
-  public static final double GEAR_RATIO = 0.02585856914;
-  /**The number of ticks per motor revolution */
-  public static final double TICKS_PER_REVOLUTION = 2048;
-  /**The gear circumferance for distance */
-  public static final double GEAR_CIRCUMFERENCE = 1.432*Math.PI;
+     public static class Wrist{
+      /**the gear ratio of the motor to the final gear revolutions */
+      public static final double GEAR_RATIO = 0.02585856914;
+      /**The number of ticks per motor revolution */
+      public static final double TICKS_PER_REVOLUTION = 2048;
+      /**The gear circumferance for distance */
+      public static final double GEAR_CIRCUMFERENCE = 1.432*Math.PI;
+}
 }

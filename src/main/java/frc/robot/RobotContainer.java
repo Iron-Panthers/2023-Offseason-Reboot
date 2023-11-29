@@ -6,8 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.ElevatorCommand;
 import frc.robot.Commands.IntakeCommand;
 import frc.robot.Commands.StopIntakeMotorCommand;
+import frc.robot.Subsystems.ElevatorSubsystem;
 import frc.robot.Subsystems.IntakeSubsystem;
 
 /**
@@ -24,6 +26,7 @@ public class RobotContainer {
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
+  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -70,5 +73,8 @@ public class RobotContainer {
 
     // stop the motors
     driverB.x().onTrue(new StopIntakeMotorCommand(intakeSubsystem));
+
+    driverB.y().onTrue(new ElevatorCommand(elevatorSubsystem, 10));
+    driverB.b().onTrue(new ElevatorCommand(elevatorSubsystem, 5));
   }
 }

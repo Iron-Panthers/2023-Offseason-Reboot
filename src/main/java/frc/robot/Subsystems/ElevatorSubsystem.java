@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.Subsystems;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -48,6 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     motorPower = controller.calculate(targetHeight);
 
     leftMotor.set(TalonFXControlMode.PercentOutput, motorPower);
+    rightMotor.set(TalonFXControlMode.PercentOutput, motorPower);
     currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());
   }
 

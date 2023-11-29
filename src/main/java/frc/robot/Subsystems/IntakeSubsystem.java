@@ -53,8 +53,8 @@ public class IntakeSubsystem extends SubsystemBase {
     this.motorPower = motorPower;
   }
 
-  //to set the object as either a cone or a cube
-  //to be called in commands alongside of set motor power
+  // to set the object as either a cone or a cube
+  // to be called in commands alongside of set motor power
   public void SetObjectType(boolean isCone) {
     this.isCone = isCone;
   }

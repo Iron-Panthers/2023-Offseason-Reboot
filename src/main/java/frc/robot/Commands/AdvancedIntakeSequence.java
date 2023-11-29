@@ -16,10 +16,15 @@ public class AdvancedIntakeSequence extends SequentialCommandGroup {
   public AdvancedIntakeSequence(IntakeSubsystem intakeSubsystem, boolean isCone, boolean isIntake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    if(isIntake){
-      addCommands( new IntakeCommand(intakeSubsystem, isCone, isIntake), new StopIntakeMotorCommand(intakeSubsystem));
-    }else{
-      addCommands( new IntakeCommand(intakeSubsystem, isCone, isIntake).withTimeout(Constants.Intake.UNLOADING_WAIT_TIME), new StopIntakeMotorCommand(intakeSubsystem) );
+    if (isIntake) {
+      addCommands(
+          new IntakeCommand(intakeSubsystem, isCone, isIntake),
+          new StopIntakeMotorCommand(intakeSubsystem));
+    } else {
+      addCommands(
+          new IntakeCommand(intakeSubsystem, isCone, isIntake)
+              .withTimeout(Constants.Intake.UNLOADING_WAIT_TIME),
+          new StopIntakeMotorCommand(intakeSubsystem));
     }
   }
 }

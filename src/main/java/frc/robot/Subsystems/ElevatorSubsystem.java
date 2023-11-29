@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Elevator;
 
@@ -20,13 +22,24 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double targetHeight;
   private double motorPower;
   private double currentHeight;
-  
+  private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
   
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
+    
     leftMotor = new TalonFX(14);
     rightMotor = new TalonFX(15);
+
+    controller = new PIDController(0.4, 0, 0.0125);
+
+    ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
+    ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
+    // ElevatorTab.addNumber("PID output", () -> this.controller);
+    ElevatorTab.addNumber("Current Height", () -> this.currentHeight);
+    ElevatorTab.add(controller);
+    ElevatorTab.addNumber("Left Motor Speed", leftMotor::getSelectedSensorVelocity);
+    ElevatorTab.addNumber("Right Motor Speed", rightMotor::getSelectedSensorVelocity);
   }
 
   

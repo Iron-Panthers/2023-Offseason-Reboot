@@ -9,16 +9,16 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Constants.Wrist;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.Wrist;
 
 public class WristSubsystem extends SubsystemBase {
   /** Creates a new WristSubsystem. */
   private double targetAngle;
+
   private final ShuffleboardTab WristTab = Shuffleboard.getTab("Wrist");
 
   private double currentAngle;
@@ -42,15 +42,17 @@ public class WristSubsystem extends SubsystemBase {
 
     pidController = new PIDController(0.1, 0, 0);
     WristTab.add(pidController);
-}
+  }
 
   public static double degreesToTicks(double angle) {
     return angle * ((Wrist.GEAR_RATIO * Wrist.TICKS));
   }
-  public void setTargetAngle(double targetAngle){
+
+  public void setTargetAngle(double targetAngle) {
     this.targetAngle = targetAngle;
     pidController.setSetpoint(targetAngle);
   }
+
   public static double ticksToDegrees(double ticks) {
     return (ticks / (Wrist.TICKS * Wrist.GEAR_RATIO));
   }
@@ -59,11 +61,13 @@ public class WristSubsystem extends SubsystemBase {
     currentAngle = ticksToDegrees(wrist_motor.getSelectedSensorPosition());
     return currentAngle;
   }
-  public boolean nearTargetAngle(){
-    if(targetAngle-0.5<=getCurrentAngle() && getCurrentAngle()<=targetAngle+0.5)return true;
-    return false;
 
-  }    
+  public boolean nearTargetAngle() {
+    if (targetAngle - 0.5 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 0.5)
+      return true;
+    return false;
+  }
+
   @Override
   public void periodic() {
     // calculates motor power

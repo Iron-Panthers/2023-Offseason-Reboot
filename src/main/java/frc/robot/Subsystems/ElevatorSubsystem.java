@@ -56,4 +56,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     motorPower = controller.calculate(targetHeight);
   }
+
+
+public boolean nearTargetHeight() {
+    return false;
+}
 }

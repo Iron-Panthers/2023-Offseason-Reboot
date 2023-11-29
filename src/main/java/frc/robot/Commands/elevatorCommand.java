@@ -9,7 +9,7 @@ import frc.robot.Subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class elevatorCommand extends CommandBase {
+public class ElevatorCommand extends CommandBase {
   private final ElevatorSubsystem elevatorSubsystem;
 
   /**
@@ -18,7 +18,7 @@ public class elevatorCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   double def;
-  public elevatorCommand(ElevatorSubsystem elevatorSubsystem, double definition) {
+  public ElevatorCommand(ElevatorSubsystem elevatorSubsystem, double definition) {
     this.elevatorSubsystem = elevatorSubsystem;
     def = definition;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -43,7 +43,7 @@ public class elevatorCommand extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished(){
     return elevatorSubsystem.nearTargetHeight();
   }
 }

@@ -3,22 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.Subsystems;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Elevator;
-
-// import frc.robot.Constants.Elevator;
-import java.util.Timer;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 // private PIDController controller;
 
@@ -29,6 +18,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private PIDController controller;
   private double targetHeight;
   private double motorPower;
+  private double currentHeight;
   
 
   
@@ -51,14 +41,23 @@ public class ElevatorSubsystem extends SubsystemBase {
   
 
 
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     motorPower = controller.calculate(targetHeight);
+
+    leftMotor.set(TalonFXControlMode.PercentOutput, motorPower);
+    currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());
   }
 
 
-public boolean nearTargetHeight() {
+
+  public boolean nearTargetHeight(){
+    if(targetHeight -0.5 <= currentHeight && currentHeight <= targetHeight +0.5){
+      return true;
+    }
     return false;
-}
+  }
+    
 }

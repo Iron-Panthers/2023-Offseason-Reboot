@@ -42,6 +42,9 @@ public class WristSubsystem extends SubsystemBase {
 
     pidController = new PIDController(0.1, 0, 0);
     WristTab.add(pidController);
+    WristTab.addNumber("Current Motor Position", wrist_motor::getSelectedSensorPosition);
+    WristTab.addBoolean("Is at target", this::nearTargetAngle);
+    WristTab.addNumber("Target Angle", () -> this.targetAngle);
 }
 
   public static double degreesToTicks(double angle) {

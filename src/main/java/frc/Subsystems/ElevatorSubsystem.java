@@ -124,20 +124,13 @@ public boolean nearTargetHeight(){
  public void periodic() {
    // This method will be called once per scheduler run
    motorPower = pidController.calculate(getCurrentHeight());
-   if (!pidController.atSetpoint()){
-     if (getCurrentHeight()<5){
-       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, 0, 0.2)));
+       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.5,0.5)));
      }
-     else{
-       left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, 0,0.5)));
-     }
-   }
    // left_motor.set(TalonFXControlMode.PercentOutput, -(0.1));
- }
 
 
  @Override
  public void simulationPeriodic() {
    // This method will be called once per scheduler run during simulation
    }
- }
+  }

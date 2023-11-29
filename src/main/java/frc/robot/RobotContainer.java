@@ -28,21 +28,12 @@ private ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevat
  /** The container for the robot. Contains subsystems, OI devices, and commands. */
  public RobotContainer() {
 
-
-   double[] levels = {20d, 15d, 10d, 3d};
-
-
-   for(double i :levels){
-     targetHeight = i;
-   }
-
-
    // Configure the button bindings
    configureButtonBindings();
-   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20d));
-   driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
-   driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));
-   driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));
+   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
+   driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15));
+   driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10));
+   driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3));
  }
 
 

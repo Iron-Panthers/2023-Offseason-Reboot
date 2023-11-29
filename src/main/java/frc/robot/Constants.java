@@ -14,4 +14,28 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static class Intake {
+
+    public static final int INTAKE_MOTOR_NUMBER = 18;
+
+    public static final double CUBE_LOADING_SPEED = .5d;
+    public static final double CONE_LOADING_SPEED = -.5d;
+
+    public static final double CUBE_UNLOADING_SPEED = -.5d;
+    public static final double CONE_UNLOADING_SPEED = .5d;
+
+    public static final double CUBE_STATOR_LIMIT = 90;
+    public static final double CONE_STATOR_LIMIT = 70;
+  }
+
+  public static class Elevator{
+    public static final double GEAR_RATIO = 0.1008;
+
+    /**number of ticks per motor revolution */
+    public static final double TICKS = 2048;
+    //tciks per revoultion
+    public static final double GEAR_CIRCUMFERENCE = 1.432* Math.PI;
+
+  }
 }

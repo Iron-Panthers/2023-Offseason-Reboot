@@ -19,9 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
  /** Creates a new ExampleSubsystem. */
- private TalonFX left_motor;
- /** leader */
- private TalonFX right_motor;
+ private TalonFX left_motor; /** leader */
+ private TalonFX right_motor; /**leader */
  private TalonFX wrist_motor;
  private PIDController pidController;
  private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");

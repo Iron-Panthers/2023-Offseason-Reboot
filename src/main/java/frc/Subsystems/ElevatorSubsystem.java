@@ -1,4 +1,18 @@
 // Copyright (c) FIRST and other WPILib contributors.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -32,7 +46,7 @@ public class ElevatorSubsystem extends SubsystemBase {
  private PIDController pidController;
  private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
-
+private double currentHeight;
  private double targetHeight;
  private double motorPower;
   public ElevatorSubsystem() {
@@ -70,7 +84,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   
    targetHeight = 0;
 
-
    motorPower = 0;
  pidController = new PIDController(0.34, 0, 0.02);
  //pidController.setTolerance(0.7,0.001);
@@ -87,16 +100,6 @@ public class ElevatorSubsystem extends SubsystemBase {
    // ElevatorTab.addNumber("height", () -> this.currentHeight);
    // ElevatorTab.addNumber("target height", () -> this.targetHeight);
    // ElevatorTab.addNumber("right motor sensor value", this::getHeight);
-
-
-
-
-
-
-
-
-
-
  }
  public void setMotorPower(double x){
    System.out.println("hello");
@@ -111,21 +114,24 @@ public class ElevatorSubsystem extends SubsystemBase {
                                                                                
    public void setTargetHeight(double targetHeight) {    
      this.targetHeight = targetHeight;                                  
-     pidController.setSetpoint(this.targetHeight); } 
+     pidController.setSetpoint(targetHeight); } 
           
-   public double getCurrentHeight(){
-     return ticksToInches(-left_motor.getSelectedSensorPosition());
-   }
+   
 public boolean nearTargetHeight(){
-   if(targetHeight -0.5 <= getCurrentHeight() && getCurrentHeight() <= targetHeight + 0.5)return true;
-   return false;
+   if(targetHeight -0.5 <= currentHeight && currentHeight <= targetHeight + 0.5){
+    return true;
+   }else{
+    return false;
+   }
  }
  @Override
  public void periodic() {
    // This method will be called once per scheduler run
-   motorPower = pidController.calculate(getCurrentHeight());
+   motorPower = pidController.calculate(currentHeight);
        left_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.5,0.5)));
-     }
+       currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());
+     
+      }
    // left_motor.set(TalonFXControlMode.PercentOutput, -(0.1));
 
 

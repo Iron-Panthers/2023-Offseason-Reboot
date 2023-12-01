@@ -29,13 +29,7 @@ private final ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(
  public RobotContainer() {
 
 
-   double[] levels = {5d,10d,17d,8d,4d,7d,1d};
-
-
-   for(double i :levels){
-     targetHeight = i;
-   }
-
+  
 
    // Configure the button bindings
    configureButtonBindings();

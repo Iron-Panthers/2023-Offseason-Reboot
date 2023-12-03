@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Commands.StopIntakeMotorCommand;
+import frc.robot.Commands.IntakeCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,6 +22,7 @@ import frc.robot.subsystems.WristSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final WristSubsystem wristSubsystem = new WristSubsystem();
   private final SequentialCommands squentialCommand = new SequentialCommands(wristSubsystem);
   // private final WristCommand wristCommand = new WristCommand();
@@ -61,6 +65,7 @@ public class RobotContainer {
    */
   public void containerMatchStarting() {
     // runs when the match starts
+
   }
 
   /**
@@ -69,5 +74,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    // intake and outtake
+    driverB.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem, false, true));
+    driverB.leftTrigger().onTrue(new IntakeCommand(intakeSubsystem, true, true));
+    driverB.rightBumper().onTrue(new IntakeCommand(intakeSubsystem, false, false));
+    driverB.leftBumper().onTrue(new IntakeCommand(intakeSubsystem, true, false));
+
+    // stop the motors
+    driverB.x().onTrue(new StopIntakeMotorCommand(intakeSubsystem));
+  }
 }

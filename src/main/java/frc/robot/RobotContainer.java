@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import frc.robot.Subsystems.IntakeSubsystem;
-import frc.robot.Commands.StopIntakeMotorCommand;
-import frc.robot.Commands.IntakeCommand;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.StopIntakeMotorCommand;
+import frc.robot.commands.IntakeCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;

@@ -6,8 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Commands.AdvancedIntakeSequence;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.commands.AdvancedIntakeSequence;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a

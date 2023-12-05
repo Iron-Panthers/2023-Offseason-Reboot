@@ -16,7 +16,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
-  private ElevatorBaseCommand ElevatorBaseCommand = new ElevatorBaseCommand(elevatorSubsystem, 0);
+  private final ElevatorBaseCommand ElevatorBaseCommand =
+      new ElevatorBaseCommand(elevatorSubsystem, 0);
 
   private final CommandXboxController driverA = new CommandXboxController(0);
   private double targetHeight;
@@ -45,7 +46,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return new InstantCommand();
+    // An ExampleCommand will run in autonomous
   }
 }

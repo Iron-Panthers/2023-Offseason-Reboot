@@ -19,7 +19,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX left_motor;
   /** leader */
   private TalonFX right_motor;
-  /** leader */
+  /** follower */
   private TalonFX wrist_motor;
 
   private PIDController pidController;
@@ -67,6 +67,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // pidController.setTolerance(0.7,0.001);
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
     ElevatorTab.addNumber("Target Height", () -> this.targetHeight);
+    ElevatorTab.addNumber("Current Height", () -> currentHeight);
     ElevatorTab.add(pidController);
 
     ElevatorTab.addNumber("Left Motor Speed", left_motor::getSelectedSensorVelocity);
@@ -95,7 +96,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void setTargetHeight(double targetHeight) {
     this.targetHeight = targetHeight;
-    pidController.setSetpoint(targetHeight);
   }
 
   public boolean nearTargetHeight() {
@@ -109,7 +109,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    motorPower = pidController.calculate(currentHeight);
+    motorPower = pidController.calculate(currentHeight, targetHeight);
     left_motor.set(
         TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower + 0.02, -0.5, 0.5)));
     currentHeight = ticksToInches(-left_motor.getSelectedSensorPosition());

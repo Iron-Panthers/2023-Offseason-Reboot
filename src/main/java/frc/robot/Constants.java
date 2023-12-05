@@ -27,6 +27,8 @@ public final class Constants {
 
     public static final double CUBE_STATOR_LIMIT = 90;
     public static final double CONE_STATOR_LIMIT = 70;
+
+    public static final double UNLOADING_WAIT_TIME = 2f;
   }
   public final class Wrist {
     public static final int DRIVER_CONTROLLER_PORT = 0;

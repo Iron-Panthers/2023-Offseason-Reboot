@@ -37,7 +37,7 @@ public class IntakeCommand extends CommandBase {
       intakeSubsystem.SetMotorPower(Constants.Intake.CUBE_UNLOADING_SPEED);
     }
 
-    //set the object type - used in the stoter currents
+    // set the object type - used in the stoter currents
     intakeSubsystem.SetObjectType(isCone);
   }
 
@@ -52,6 +52,6 @@ public class IntakeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return intakeSubsystem.IsLoaded();
   }
 }

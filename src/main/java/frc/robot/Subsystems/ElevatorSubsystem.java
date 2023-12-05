@@ -59,8 +59,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    motorPower = controller.calculate(targetHeight);
-
+    double ticks = leftMotor.getSelectedSensorPosition();
+    motorPower = controller.calculate(ticksToInches(ticks), targetHeight);
     leftMotor.set(TalonFXControlMode.PercentOutput, motorPower);
     rightMotor.set(TalonFXControlMode.PercentOutput, motorPower);
     currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());

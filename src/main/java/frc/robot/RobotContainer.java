@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.SequentialCommands;
 import frc.robot.subsystems.WristSubsystem;
-import frc.robot.Commands.AdvancedIntakeSequence;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.commands.AdvancedIntakeSequence;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a

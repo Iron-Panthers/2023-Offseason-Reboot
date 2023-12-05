@@ -57,7 +57,7 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   public static double ticksToDegrees(double ticks) {
-    return ((ticks / Wrist.TICKS) * Wrist.GEAR_RATIO*360);
+    return ((ticks / Wrist.TICKS) * (Wrist.GEAR_RATIO/360));
   }
 
   private double getCurrentAngle() {

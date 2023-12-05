@@ -53,8 +53,8 @@ public class IntakeSubsystem extends SubsystemBase {
     this.motorPower = motorPower;
   }
 
-  //to set the object as either a cone or a cube
-  //to be called in commands alongside of set motor power
+  // to set the object as either a cone or a cube
+  // to be called in commands alongside of set motor power
   public void SetObjectType(boolean isCone) {
     this.isCone = isCone;
   }
@@ -67,7 +67,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // set the motor power to the var
     intakeMotor.set(TalonFXControlMode.PercentOutput, motorPower);
 
-    // if we are done loading than set the motor power to 0
-    if (IsLoaded()) SetMotorPower(0);
+    // // if we are done loading than set the motor power to 0
+    // if (IsLoaded()) SetMotorPower(0);
   }
 }

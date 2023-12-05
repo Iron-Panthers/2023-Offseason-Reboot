@@ -6,6 +6,7 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -61,8 +62,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     double ticks = leftMotor.getSelectedSensorPosition();
     motorPower = controller.calculate(ticksToInches(ticks), targetHeight);
-    leftMotor.set(TalonFXControlMode.PercentOutput, motorPower);
-    rightMotor.set(TalonFXControlMode.PercentOutput, motorPower);
+    leftMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
+    rightMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
     currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());
   }
 

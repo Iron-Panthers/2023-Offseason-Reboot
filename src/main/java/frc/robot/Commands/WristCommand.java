@@ -13,15 +13,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class WristCommand extends CommandBase {
  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
  private final WristSubsystem wristSubsystem;
-private DoubleSupplier speedSupplier;
- /**
+private double targetAngle;
+/* 
   * Creates a new ExampleCommand.
   *
   * @param subsystem The subsystem used by this command.
   */
- public WristCommand(WristSubsystem wristSubsystem, DoubleSupplier speedSupplier) {
+ public WristCommand(WristSubsystem wristSubsystem, double targetAngle) {
    this.wristSubsystem = wristSubsystem;
-   this.speedSupplier = speedSupplier;
+   this.targetAngle = targetAngle;
    // Use addRequirements() here to declare subsystem dependencies.
    addRequirements(wristSubsystem);
  }
@@ -35,7 +35,7 @@ private DoubleSupplier speedSupplier;
  // Called every time the scheduler runs while the command is scheduled.
  @Override
  public void execute() {
-  wristSubsystem.setTargetAngle(50); //update the targetAngle here 
+  wristSubsystem.setTargetAngle(targetAngle); //update the targetAngle here based on the controls in Robot Container
 
 
  }

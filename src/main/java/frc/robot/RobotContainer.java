@@ -1,6 +1,8 @@
 package frc.robot;
 import frc.robot.commands.ElevatorBaseCommand;
+import frc.robot.commands.WristCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
  // The robot's subsystems and commands are defined here...
  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+ private final WristSubsystem wristSubsystem = new WristSubsystem();
 
 
  private final CommandXboxController driverA = new CommandXboxController(0);
@@ -44,11 +47,13 @@ public class RobotContainer {
   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
   */
+
+  // Adds the button bindings and controls for the controller >:D so you can control what angle the wrist goes to 
  private void configureButtonBindings() {
-   driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
-   driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15d));
-   driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10d));
-   driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3d));
+   driverA.a().onTrue(new WristCommand(wristSubsystem, 25));
+   driverA.x().onTrue(new WristCommand(wristSubsystem, 45));
+   driverA.y().onTrue(new WristCommand(wristSubsystem, 65));
+   driverA.b().onTrue(new WristCommand(wristSubsystem, 90));
  }
 
  /**

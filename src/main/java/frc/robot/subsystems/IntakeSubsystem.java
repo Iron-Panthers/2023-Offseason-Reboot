@@ -5,9 +5,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-
-import org.apache.commons.math3.analysis.function.Constant;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
@@ -19,6 +16,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public double OutakeMotorPower;
   public boolean Intake = false;
 
+  public boolean isRunning = false;
+
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
@@ -27,11 +26,14 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakePower(double IntakeMotorSpeed){
+    isRunning = true;
     Intake = true;
     this.IntakeMotorSpeed = IntakeMotorSpeed;
+    isRunning = false;
   }
 
   public void setOutakePower(double OutakeMotorPower){
+    isRunning = true;
     Intake = false;
     this.OutakeMotorPower = OutakeMotorPower;
 

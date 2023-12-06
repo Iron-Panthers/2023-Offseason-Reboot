@@ -49,7 +49,7 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   public static double degreesToTicks(double angle) {
-    return (angle * 360d) / ((Wrist.GEAR_RATIO * Wrist.TICKS));
+    return (angle * 360d) / (Wrist.GEAR_RATIO) / (Wrist.TICKS);
   }
 
   public void setTargetAngle(double targetAngle) {
@@ -58,7 +58,7 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   public static double ticksToDegrees(double ticks) {
-    return ((ticks / Wrist.TICKS) * (Wrist.GEAR_RATIO) / 360);
+    return ((ticks / Wrist.TICKS) * (Wrist.GEAR_RATIO) * 360);
   }
 
   private double getCurrentAngle() {

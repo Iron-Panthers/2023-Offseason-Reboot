@@ -30,4 +30,22 @@ public final class Constants {
 
     public static final double UNLOADING_WAIT_TIME = 2f;
   }
+
+  public static class Elevator{
+    
+    public static final int RIGHT_ELEVATOR_MOTOR_NUMBER = 14;
+    public static final int LEFT_ELEVATOR_MOTOR_NUMBER = 15;
+
+    public static final int TICKS_PER_REVOLUTION = 2048;
+    public static final double GEAR_RATIO = 0.1008d;
+    public static final double GEAR_CIRCUMFERENCE = 1.432d*Math.PI;
+    public static final double CARRIAGE_RATIO = 2;
+
+    public static final double MAX_ELEVATOR_EXTENSION = 54;
+
+    public static final double NEAR_TARGET_HEIGHT_THRESHOLD = .5d;
+
+
+
+  }
 }

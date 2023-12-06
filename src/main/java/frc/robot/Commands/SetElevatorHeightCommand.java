@@ -5,24 +5,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-public class StopIntakeMotorCommand extends CommandBase {
-  IntakeSubsystem intakeSubsystem;
+public class SetElevatorHeightCommand extends CommandBase {
 
-  /** Creates a new StopIntakeMotorCommand. */
-  public StopIntakeMotorCommand(IntakeSubsystem intakeSubsystem) {
-    this.intakeSubsystem = intakeSubsystem;
+  ElevatorSubsystem elevatorSubsystem;
+  double height;
+
+  /** Creates a new SetElevatorHeightCommand. */
+  public SetElevatorHeightCommand(ElevatorSubsystem elevatorSubsystem, double height) {
+
+    this.elevatorSubsystem = elevatorSubsystem;
+    this.height = height;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem);
+    addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // STOP ALL MOTORS IN INITIALIZE
-    intakeSubsystem.SetMotorPower(0);
+    //set the elevator height
+    elevatorSubsystem.setHeight(height);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +41,6 @@ public class StopIntakeMotorCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return elevatorSubsystem.nearTargetHeight();
   }
 }

@@ -62,7 +62,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     motorPower = 0;
 
-    pidController = new PIDController(0.05, 0, 0);
+    pidController = new PIDController(0.34, 0, 0.02);
 
     // pidController.setTolerance(0.7,0.001);
     ElevatorTab.addNumber("Current Motor Power", () -> this.motorPower);
@@ -82,11 +82,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void setMotorPower(double x) {
     System.out.println("hello");
-  }
-
-  public static double inchesToTicks(double height) {
-    return height
-        * ((Elevator.GEAR_RATIO * Elevator.GEAR_RATIO) / (Elevator.ELEVATOR_SPROCKET_DIAMETER_INCHES * Math.PI));
   }
 
   public static double ticksToInches(double ticks) {

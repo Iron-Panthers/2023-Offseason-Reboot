@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Subsystems;
+package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
@@ -22,7 +22,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private PIDController controller;
   private double targetHeight;
   private double motorPower;
-  private double currentHeight;
+  private double currentHeight = 0;
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
   
@@ -30,7 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     
     leftMotor = new TalonFX(14);
-    rightMotor = new TalonFX(15);<
+    rightMotor = new TalonFX(15);
 
     
     leftMotor.configFactoryDefault();
@@ -50,6 +50,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     ElevatorTab.add(controller);
     ElevatorTab.addNumber("Left Motor Speed", leftMotor::getSelectedSensorVelocity);
     ElevatorTab.addNumber("Right Motor Speed", rightMotor::getSelectedSensorVelocity);
+
+    targetHeight = 0;
+    currentHeight = 0;
   }
 
   
@@ -71,7 +74,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     double ticks = leftMotor.getSelectedSensorPosition();
     motorPower = controller.calculate(ticksToInches(ticks), targetHeight);
-    leftMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
+    leftMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.2, 0.2));
     
     currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());
   }

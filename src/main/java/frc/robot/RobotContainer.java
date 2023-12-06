@@ -6,11 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Commands.ElevatorCommand;
-import frc.robot.Commands.IntakeCommand;
-import frc.robot.Commands.StopIntakeMotorCommand;
-import frc.robot.Subsystems.ElevatorSubsystem;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.commands.ElevatorCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.StopIntakeMotorCommand;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a

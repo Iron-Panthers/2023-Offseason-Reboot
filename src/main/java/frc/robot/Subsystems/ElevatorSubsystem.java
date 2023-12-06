@@ -60,7 +60,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public static double inchesToTicks(double height) {
     return Elevator.CARRIAGE_RATIO
         * (Elevator.ELEVATOR_SPROCKET_DIAMETER_INCHES * Math.PI)
-        * ((ticks / Elevator.FALCON_CPR) * Elevator.ELEVATOR_GEAR_RATIO);
+        * ((height / Elevator.FALCON_CPR) * Elevator.ELEVATOR_GEAR_RATIO);
   }
   public static double ticksToInches(double ticks) {
     return Elevator.CARRIAGE_RATIO

@@ -30,7 +30,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     
     leftMotor = new TalonFX(14);
-    rightMotor = new TalonFX(15);
+    rightMotor = new TalonFX(15);<
+
+    
+    leftMotor.configFactoryDefault();
+    rightMotor.configFactoryDefault();
+    
+    rightMotor.clearStickyFaults();
+    leftMotor.clearStickyFaults();
+
+    rightMotor.follow(leftMotor);
 
     controller = new PIDController(0.4, 0, 0.0125);
 
@@ -63,7 +72,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     double ticks = leftMotor.getSelectedSensorPosition();
     motorPower = controller.calculate(ticksToInches(ticks), targetHeight);
     leftMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
-    rightMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.75, 0.75));
+    
     currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());
   }
 

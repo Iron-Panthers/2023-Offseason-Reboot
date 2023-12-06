@@ -22,9 +22,11 @@ public final class Constants {
     /** the gear ratio of the motor to the final gear revolutions */
     public static final double GEAR_RATIO = 0.1008;
     /** The number of ticks per motor revolution */
-    public static final double TICKS_PER_REVOLUTION = 2048;
+    public static final double FALCON_CPR = 2048;
     /** The gear circumferance for distance */
-    public static final double GEAR_CIRCUMFERENCE = 1.432 * Math.PI;
+    public static final double ELEVATOR_SPROCKET_DIAMETER_INCHES = 1.432;
+
+    public static final double CARRIAGE_RATIO = 2;
   }
   public final class Wrist {
     public static final int DRIVER_CONTROLLER_PORT = 0;

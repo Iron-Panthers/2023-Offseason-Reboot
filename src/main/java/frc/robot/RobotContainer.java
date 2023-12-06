@@ -27,10 +27,10 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-    driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 20));
-    driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15));
-    driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 10));
-    driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 3));
+    driverA.y().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 45));
+    driverA.x().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 30));
+    driverA.b().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 15));
+    driverA.a().onTrue(new ElevatorBaseCommand(elevatorSubsystem, 5));
   }
 
   /**

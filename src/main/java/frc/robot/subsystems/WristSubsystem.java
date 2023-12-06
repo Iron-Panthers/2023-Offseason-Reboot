@@ -32,9 +32,9 @@ public class WristSubsystem extends SubsystemBase {
     this.wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
     this.wrist_motor.configFactoryDefault();
     this.wrist_motor.clearStickyFaults();
-    this.wrist_motor.configForwardSoftLimitThreshold(0);
-    this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
-    this.wrist_motor.configReverseSoftLimitEnable(true, 0);
+    //this.wrist_motor.configForwardSoftLimitThreshold(0);
+    //this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
+    //this.wrist_motor.configReverseSoftLimitEnable(true, 0);
     this.wrist_motor.configForwardSoftLimitEnable(true, 0);
     this.wrist_motor.setNeutralMode(NeutralMode.Coast);
     this.wrist_motor.setSelectedSensorPosition(0);
@@ -43,12 +43,13 @@ public class WristSubsystem extends SubsystemBase {
     pidController = new PIDController(0.1, 0, 0);
     WristTab.add(pidController);
     WristTab.addNumber("Current Motor Position", wrist_motor::getSelectedSensorPosition);
+    WristTab.addNumber("Current motor angle", this::getCurrentAngle);
     WristTab.addBoolean("Is at target", this::nearTargetAngle);
     WristTab.addNumber("Target Angle", () -> this.targetAngle);
-}
+  }
 
   public static double degreesToTicks(double angle) {
-    return (angle*360d)/((Wrist.GEAR_RATIO * Wrist.TICKS));
+    return (angle * 360d) / ((Wrist.GEAR_RATIO * Wrist.TICKS));
   }
 
   public void setTargetAngle(double targetAngle) {
@@ -57,7 +58,7 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   public static double ticksToDegrees(double ticks) {
-    return ((ticks / Wrist.TICKS) * (Wrist.GEAR_RATIO/360));
+    return ((ticks / Wrist.TICKS) * (Wrist.GEAR_RATIO) / 360);
   }
 
   private double getCurrentAngle() {

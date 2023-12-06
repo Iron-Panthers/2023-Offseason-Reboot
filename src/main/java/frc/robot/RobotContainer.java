@@ -4,17 +4,14 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.StopIntakeMotorCommand;
-import frc.robot.commands.IntakeCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.SequentialCommands;
-import frc.robot.subsystems.WristSubsystem;
 import frc.robot.commands.AdvancedIntakeSequence;
+import frc.robot.commands.SequentialCommands;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,7 +31,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    driverB.y().onTrue(new SequentialCommands(wristSubsystem));
+    
     configureButtonBindings();
 
     //   } else if (driverB.leftTrigger().getAsBoolean()) {
@@ -42,7 +39,7 @@ public class RobotContainer {
     // driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
     // driverB.a().onTrue(new WristCommand(wristSubsystem, 20));
     // driverB.b().onTrue(new WristCommand(wristSubsystem, 40));
-    driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
+    
   }
 
   /**
@@ -78,6 +75,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // intake and outtake
+    driverB.y().onTrue(new SequentialCommands(wristSubsystem));
+    driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
     driverB.rightTrigger().onTrue(new AdvancedIntakeSequence(intakeSubsystem, false, true));
     driverB.leftTrigger().onTrue(new AdvancedIntakeSequence(intakeSubsystem, true, true));
     driverB.rightBumper().onTrue(new AdvancedIntakeSequence(intakeSubsystem, false, false));

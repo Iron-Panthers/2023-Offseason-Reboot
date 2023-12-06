@@ -30,6 +30,7 @@ public final class Constants {
 
     public static final double UNLOADING_WAIT_TIME = 2f;
   }
+
   public final class Wrist {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int WRIST_MOTOR_DEVICE_NUMBER = 16;

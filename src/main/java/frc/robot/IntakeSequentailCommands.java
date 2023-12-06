@@ -7,8 +7,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.Subsystems.IntakeSubsystem;
-import frc.robot.Commands.IntakeCommand;
-import frc.robot.Commands.OutakeCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.OutakeCommand;
 
 
 public class IntakeSequentailCommands extends SequentialCommandGroup{

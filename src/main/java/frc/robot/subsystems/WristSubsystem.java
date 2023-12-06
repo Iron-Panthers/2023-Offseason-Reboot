@@ -24,6 +24,7 @@ public class WristSubsystem extends SubsystemBase {
 
  private double targetAngle;
  private double motorPower;
+ private double currentAngle;
  
  
  //creates the WristSubsystem 
@@ -31,6 +32,7 @@ public class WristSubsystem extends SubsystemBase {
     motor = new TalonFX(16);
     motorPower = 0;
     targetAngle = 0; //sets the "targetAngle" variable to 0 by default
+    currentAngle = 0; //sets the current height that you are at to 0 by defualt
 
 
     //creates the new PID :) WOOHOOOO
@@ -40,6 +42,7 @@ public class WristSubsystem extends SubsystemBase {
     //
     WristTab.addNumber("Current Motor Power", () -> motorPower);  
     WristTab.addNumber("Target Angle", () -> this.targetAngle);
+    WristTab.addNumber("Current Angle", () -> this.currentAngle);
   }
  
 
@@ -59,7 +62,8 @@ public void setTargetAngle(double targetAngle) {
 //periodic every 20ms it does this stuff...
  @Override
  public void periodic() {
-    motorPower = pidController.calculate(motorPower); //calculates the motor power based on the PID?
+    currentAngle = this.ticksToInches(motor.getSelectedSensorPosition());
+    motorPower = pidController.calculate(currentAngle); //calculates the motor power based on the PID?
     motor.set(TalonFXControlMode.PercentOutput, motorPower); 
     // ^ basically makes it so whatever the motor power is it actually moves the motor :0 
 

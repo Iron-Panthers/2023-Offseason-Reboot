@@ -11,6 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.Elevator;
 
 // private PIDController controller;
@@ -57,10 +58,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   
   public static double inchesToTicks(double height) {
-    return height * ((Elevator.GEAR_RATIO * Elevator.TICKS) / (Elevator.GEAR_CIRCUMFERENCE));
+    return Elevator.CARRIAGE_RATIO
+        * (Elevator.ELEVATOR_SPROCKET_DIAMETER_INCHES * Math.PI)
+        * ((ticks / Elevator.FALCON_CPR) * Elevator.ELEVATOR_GEAR_RATIO);
   }
   public static double ticksToInches(double ticks) {
-    return (ticks * Elevator.GEAR_CIRCUMFERENCE) / (Elevator.TICKS * Elevator.GEAR_RATIO);
+    return Elevator.CARRIAGE_RATIO
+        * (Elevator.ELEVATOR_SPROCKET_DIAMETER_INCHES * Math.PI)
+        * ((ticks / Elevator.FALCON_CPR) * Elevator.ELEVATOR_GEAR_RATIO);
   }
   public void setTargetHeight(double targetHeight){
     this.targetHeight = targetHeight;

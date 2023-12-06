@@ -30,7 +30,13 @@ public final class Constants {
   }
 
   public static class Elevator{
-    public static final double GEAR_RATIO = 0.1008;
+    public static final double ELEVATOR_GEAR_RATIO = 0.1008;
+
+    private static final double CARRIAGE_RATIO = 2;
+
+    private static final double ELEVATOR_SPROCKET_DIAMETER_INCHES = 1.432;
+
+    private static final double FALCON_CPR = 2048;
 
     /**number of ticks per motor revolution */
     public static final double TICKS = 2048;

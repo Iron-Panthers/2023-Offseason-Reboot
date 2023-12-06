@@ -36,6 +36,6 @@ public final class Constants {
     public static final int WRIST_MOTOR_DEVICE_NUMBER = 16;
     public static final double TICKS = 2048;
     public static final double DEGREES = 360;
-    public static final double GEAR_RATIO = 0.061;
+    public static final double GEAR_RATIO = 128;
   }
 }

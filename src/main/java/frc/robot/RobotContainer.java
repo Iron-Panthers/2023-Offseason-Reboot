@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AdvancedIntakeSequence;
 import frc.robot.commands.SequentialCommands;
+import frc.robot.commands.WristCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
@@ -23,7 +24,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final WristSubsystem wristSubsystem = new WristSubsystem();
-  private final SequentialCommands squentialCommand = new SequentialCommands(wristSubsystem);
+  //private final SequentialCommands squentialCommand = new SequentialCommands(wristSubsystem);
   // private final WristCommand wristCommand = new WristCommand();
   private final CommandXboxController driverB =
       new CommandXboxController(Constants.Wrist.DRIVER_CONTROLLER_PORT);
@@ -75,10 +76,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // intake and outtake
-    driverB.y().onTrue(new SequentialCommands(wristSubsystem));
+    // driverB.y().onTrue(new SequentialCommands(wristSubsystem));
+    driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
+    driverB.b().onTrue(new WristCommand(wristSubsystem, 20));
+    driverB.a().onTrue(new WristCommand(wristSubsystem, 70));
     driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
-    driverB.rightTrigger().onTrue(new AdvancedIntakeSequence(intakeSubsystem, false, true));
-    driverB.leftTrigger().onTrue(new AdvancedIntakeSequence(intakeSubsystem, true, true));
+    driverB.rightTrigger().onTrue(new AdvancedIntakeSequence(intakeSubsystem, false, true).andThen((new WristCommand(wristSubsystem, 70))));
+    driverB.leftTrigger().onTrue(new AdvancedIntakeSequence(intakeSubsystem, true, true).andThen((new WristCommand(wristSubsystem, 70))));
     driverB.rightBumper().onTrue(new AdvancedIntakeSequence(intakeSubsystem, false, false));
     driverB.leftBumper().onTrue(new AdvancedIntakeSequence(intakeSubsystem, true, false));
   }

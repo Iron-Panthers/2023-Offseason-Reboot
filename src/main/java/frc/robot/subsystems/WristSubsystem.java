@@ -40,21 +40,25 @@ public class WristSubsystem extends SubsystemBase {
     this.wrist_motor.setSelectedSensorPosition(0);
     this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
 
-    pidController = new PIDController(0.1, 0, 0);
+    pidController = new PIDController(0.045, 0, 0.008);
     WristTab.add(pidController);
     WristTab.addNumber("Current Motor Position", wrist_motor::getSelectedSensorPosition);
     WristTab.addNumber("Current motor angle", this::getCurrentAngle);
     WristTab.addBoolean("Is at target", this::nearTargetAngle);
     WristTab.addNumber("Target Angle", () -> this.targetAngle);
+    WristTab.addNumber("error",this::error);
+    WristTab.addNumber("Motor Power",() -> motorPower);
   }
 
   public static double degreesToTicks(double angle) {
     return (angle * 360d) / (Wrist.GEAR_RATIO) / (Wrist.TICKS);
   }
-
+  public double error(){
+    return (targetAngle-getCurrentAngle());
+  }
   public void setTargetAngle(double targetAngle) {
-    this.targetAngle = targetAngle;
-    pidController.setSetpoint(targetAngle);
+    this.targetAngle = -1*targetAngle;
+    pidController.setSetpoint(-targetAngle);
   }
 
   public static double ticksToDegrees(double ticks) {
@@ -67,7 +71,7 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   public boolean nearTargetAngle() {
-    if (targetAngle - 0.5 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 0.5)
+    if (targetAngle - 1 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 1)
       return true;
     return false;
   }
@@ -77,6 +81,6 @@ public class WristSubsystem extends SubsystemBase {
     // calculates motor power
     motorPower = pidController.calculate(getCurrentAngle());
     // This method will be called once per scheduler run
-    wrist_motor.set(TalonFXControlMode.PercentOutput, -(MathUtil.clamp(motorPower, -0.5, 0.5)));
+    wrist_motor.set(TalonFXControlMode.PercentOutput, (MathUtil.clamp(motorPower, -0.5, 0.5)));
   }
 }

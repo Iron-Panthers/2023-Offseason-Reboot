@@ -3,8 +3,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ElevatorBaseCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -15,6 +18,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   private final ElevatorBaseCommand ElevatorBaseCommand =
       new ElevatorBaseCommand(elevatorSubsystem, 0);
@@ -39,7 +43,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    driverA.a().onTrue(new IntakeCommand(intakeSubsystem, 0.5));
+    driverA.y().onTrue(new IntakeCommand(intakeSubsystem, 0));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

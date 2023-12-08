@@ -32,37 +32,39 @@ public class WristSubsystem extends SubsystemBase {
     this.wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
     this.wrist_motor.configFactoryDefault();
     this.wrist_motor.clearStickyFaults();
-    //this.wrist_motor.configForwardSoftLimitThreshold(0);
-    //this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
-    //this.wrist_motor.configReverseSoftLimitEnable(true, 0);
+    // this.wrist_motor.configForwardSoftLimitThreshold(0);
+    // this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
+    // this.wrist_motor.configReverseSoftLimitEnable(true, 0);
     this.wrist_motor.configForwardSoftLimitEnable(true, 0);
     this.wrist_motor.setNeutralMode(NeutralMode.Coast);
     this.wrist_motor.setSelectedSensorPosition(0);
     this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
 
-    pidController = new PIDController(0.045, 0, 0.008);
+    pidController = new PIDController(0.02, 0, 0.00);
     WristTab.add(pidController);
     WristTab.addNumber("Current Motor Position", wrist_motor::getSelectedSensorPosition);
     WristTab.addNumber("Current motor angle", this::getCurrentAngle);
     WristTab.addBoolean("Is at target", this::nearTargetAngle);
     WristTab.addNumber("Target Angle", () -> this.targetAngle);
-    WristTab.addNumber("error",this::error);
-    WristTab.addNumber("Motor Power",() -> motorPower);
+    WristTab.addNumber("error", this::error);
+    WristTab.addNumber("Motor Power", () -> motorPower);
   }
 
   public static double degreesToTicks(double angle) {
     return (angle * 360d) / (Wrist.GEAR_RATIO) / (Wrist.TICKS);
   }
-  public double error(){
-    return (targetAngle-getCurrentAngle());
+
+  public double error() {
+    return (targetAngle - getCurrentAngle());
   }
+
   public void setTargetAngle(double targetAngle) {
-    this.targetAngle = -1*targetAngle;
+    this.targetAngle = -1 * targetAngle;
     pidController.setSetpoint(-targetAngle);
   }
 
   public static double ticksToDegrees(double ticks) {
-    return ((ticks / Wrist.TICKS/ (Wrist.GEAR_RATIO) * 360));
+    return ((ticks / Wrist.TICKS / (Wrist.GEAR_RATIO) * 360));
   }
 
   private double getCurrentAngle() {
@@ -71,8 +73,7 @@ public class WristSubsystem extends SubsystemBase {
   }
 
   public boolean nearTargetAngle() {
-    if (targetAngle - 1 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 1)
-      return true;
+    if (targetAngle - 1 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 1) return true;
     return false;
   }
 

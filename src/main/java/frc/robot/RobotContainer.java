@@ -79,7 +79,7 @@ public class RobotContainer {
     driverB.y().onTrue(new WristCommand(wristSubsystem, 0));
     driverB.b().onTrue(new WristCommand(wristSubsystem, 20));
     driverB.a().onTrue(new WristCommand(wristSubsystem, 70));
-    driverB.x().onTrue(new InstantCommand(() -> {}, wristSubsystem));
+    driverB.x().onTrue(new WristCommand(wristSubsystem, 12));
     driverB
         .rightTrigger()
         .onTrue(

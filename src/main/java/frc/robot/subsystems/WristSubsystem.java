@@ -9,38 +9,42 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Wrist;
+import edu.wpi.first.math.filter.LinearFilter;
+
 
 public class WristSubsystem extends SubsystemBase {
   /** Creates a new WristSubsystem. */
   private double targetAngle;
 
   private final ShuffleboardTab WristTab = Shuffleboard.getTab("Wrist");
-
+  private LinearFilter filter;
   private double currentAngle;
   private TalonFX wrist_motor;
   private PIDController pidController;
+  private boolean zero;
   private double motorPower;
-
+  private double filterOutput;
   public WristSubsystem() {
 
     this.targetAngle = targetAngle;
     this.wrist_motor = new TalonFX(Constants.Wrist.WRIST_MOTOR_DEVICE_NUMBER);
     this.wrist_motor.configFactoryDefault();
     this.wrist_motor.clearStickyFaults();
-    // this.wrist_motor.configForwardSoftLimitThreshold(0);
-    // this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
-    // this.wrist_motor.configReverseSoftLimitEnable(true, 0);
+    //this.wrist_motor.configForwardSoftLimitThreshold(0);
+    //this.wrist_motor.configReverseSoftLimitThreshold(degreesToTicks(90));
+    //this.wrist_motor.configReverseSoftLimitEnable(true, 0);
     this.wrist_motor.configForwardSoftLimitEnable(true, 0);
     this.wrist_motor.setNeutralMode(NeutralMode.Coast);
     this.wrist_motor.setSelectedSensorPosition(0);
     this.wrist_motor.configOpenloopRamp(.5); // can't go from 0 to 1 instantly
 
-    pidController = new PIDController(0.02, 0, 0.00);
+    pidController = new PIDController(0.1, 0, 0);
     WristTab.add(pidController);
     WristTab.addNumber("Current Motor Position", wrist_motor::getSelectedSensorPosition);
     WristTab.addNumber("Current motor angle", this::getCurrentAngle);
@@ -48,8 +52,18 @@ public class WristSubsystem extends SubsystemBase {
     WristTab.addNumber("Target Angle", () -> this.targetAngle);
     WristTab.addNumber("error", this::error);
     WristTab.addNumber("Motor Power", () -> motorPower);
+
+    filter = LinearFilter.movingAverage(30);
   }
 
+  public boolean IsLoaded() { // returns true when the cube or cone has finished loading
+    boolean down = false;
+    if (filterOutput >= Constants.Wrist.DOWN_STATOR_LIMIT) {
+      down = true;
+    }
+    return down;
+  }
+  
   public static double degreesToTicks(double angle) {
     return (angle * 360d) / (Wrist.GEAR_RATIO) / (Wrist.TICKS);
   }
@@ -71,17 +85,34 @@ public class WristSubsystem extends SubsystemBase {
     currentAngle = ticksToDegrees(wrist_motor.getSelectedSensorPosition());
     return currentAngle;
   }
-
+  public boolean isZero(boolean zero){
+    return zero;
+  }
   public boolean nearTargetAngle() {
-    if (targetAngle - 1 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 1) return true;
+    if (zero && IsLoaded()){
+      this.wrist_motor.setSelectedSensorPosition(0);
+      return true;
+    }
+    else if (zero){
+      return false;
+    }
+    else if (targetAngle - 0.5 <= getCurrentAngle() && getCurrentAngle() <= targetAngle + 0.5)
+      return true;
     return false;
   }
 
   @Override
   public void periodic() {
     // calculates motor power
-    motorPower = pidController.calculate(getCurrentAngle());
+    if (zero){
+      filterOutput = filter.calculate(wrist_motor.getStatorCurrent());
+      motorPower = Wrist.DEFAULT_SPEED;
+    }
+    else{
+          motorPower = pidController.calculate(getCurrentAngle());
+    }
     // This method will be called once per scheduler run
     wrist_motor.set(TalonFXControlMode.PercentOutput, (MathUtil.clamp(motorPower, -0.5, 0.5)));
   }
 }
+

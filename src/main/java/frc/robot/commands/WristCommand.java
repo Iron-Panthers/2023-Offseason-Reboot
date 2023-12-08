@@ -25,7 +25,12 @@ public class WristCommand extends CommandBase {
   @Override
   public void initialize() {
     // sets target angle
-    wristSubsystem.setTargetAngle(targetAngle);
+    if (targetAngle == 12.0){
+      wristSubsystem.isZero(true);
+    }
+    else{
+      wristSubsystem.setTargetAngle(targetAngle);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

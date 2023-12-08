@@ -37,5 +37,7 @@ public final class Constants {
     public static final double TICKS = 2048;
     public static final double DEGREES = 360;
     public static final double GEAR_RATIO = 128;
+    public static final double DOWN_STATOR_LIMIT = 70;
+    public static final double DEFAULT_SPEED = 0.2;
   }
 }

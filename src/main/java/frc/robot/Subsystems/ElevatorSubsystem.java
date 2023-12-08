@@ -3,15 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.Elevator;
 
 // private PIDController controller;
@@ -26,17 +25,15 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double currentHeight = 0;
   private final ShuffleboardTab ElevatorTab = Shuffleboard.getTab("Elevator");
 
-  
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
-    
+
     leftMotor = new TalonFX(14);
     rightMotor = new TalonFX(15);
 
-    
     leftMotor.configFactoryDefault();
     rightMotor.configFactoryDefault();
-    
+
     rightMotor.clearStickyFaults();
     leftMotor.clearStickyFaults();
 
@@ -56,41 +53,36 @@ public class ElevatorSubsystem extends SubsystemBase {
     currentHeight = 0;
   }
 
-  
   public static double inchesToTicks(double height) {
     return Elevator.CARRIAGE_RATIO
         * (Elevator.ELEVATOR_SPROCKET_DIAMETER_INCHES * Math.PI)
         * ((height / Elevator.FALCON_CPR) * Elevator.ELEVATOR_GEAR_RATIO);
   }
+
   public static double ticksToInches(double ticks) {
     return Elevator.CARRIAGE_RATIO
         * (Elevator.ELEVATOR_SPROCKET_DIAMETER_INCHES * Math.PI)
         * ((ticks / Elevator.FALCON_CPR) * Elevator.ELEVATOR_GEAR_RATIO);
   }
-  public void setTargetHeight(double targetHeight){
+
+  public void setTargetHeight(double targetHeight) {
     this.targetHeight = targetHeight;
   }
-  
 
-
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     double ticks = leftMotor.getSelectedSensorPosition();
     motorPower = controller.calculate(ticksToInches(ticks), targetHeight);
     leftMotor.set(TalonFXControlMode.PercentOutput, MathUtil.clamp(motorPower, -0.2, 0.2));
-    
+
     currentHeight = ticksToInches(-leftMotor.getSelectedSensorPosition());
   }
 
-
-
-  public boolean nearTargetHeight(){
-    if(targetHeight -0.5 <= currentHeight && currentHeight <= targetHeight +0.5){
+  public boolean nearTargetHeight() {
+    if (targetHeight - 0.5 <= currentHeight && currentHeight <= targetHeight + 0.5) {
       return true;
     }
     return false;
   }
-    
 }

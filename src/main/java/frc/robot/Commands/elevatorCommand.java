@@ -4,9 +4,9 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ElevatorSubsystem;
 // import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class ElevatorCommand extends CommandBase {
@@ -18,13 +18,14 @@ public class ElevatorCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   double def;
+
   public ElevatorCommand(ElevatorSubsystem elevatorSubsystem, double definition) {
     this.elevatorSubsystem = elevatorSubsystem;
     def = definition;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
-  
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -32,9 +33,8 @@ public class ElevatorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
-      elevatorSubsystem.setTargetHeight(def);
-    
+
+    elevatorSubsystem.setTargetHeight(def);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,7 +43,7 @@ public class ElevatorCommand extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished(){
+  public boolean isFinished() {
     return elevatorSubsystem.nearTargetHeight();
   }
 }

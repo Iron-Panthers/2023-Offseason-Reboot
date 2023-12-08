@@ -33,4 +33,9 @@ public final class Constants {
     public static final double DEGREES = 360;
     public static final double GEAR_RATIO = 0.061;
   }
+  public final class Intake {
+    public static final int MOTOR_PORT = 18;
+    
+  }
 }
+
